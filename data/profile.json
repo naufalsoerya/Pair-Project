@@ -1,0 +1,20 @@
+[
+    {
+        "UserId": 1,
+        "photoProfile": "https://akcdn.detik.net.id/visual/2022/01/04/ilustrasi-kucing-oranye_169.jpeg?w=400&q=90",
+        "gender": "Male",
+        "userName": "naufalsoerya"
+    },
+    {
+        "UserId": 2,
+        "photoProfile": "https://asset.kompas.com/crops/fYTbDvQm6-4aktSbHz1FJkvCT3c=/0x0:612x408/750x500/data/photo/2023/08/19/64e054b9610d6.jpeg",
+        "gender": "Female",
+        "userName": "ajengpuspitaa_"
+    },
+    {
+        "UserId": 3,
+        "photoProfile": "https://akcdn.detik.net.id/visual/2022/01/04/ilustrasi-kucing-oranye_169.jpeg?w=400&q=90",
+        "gender": "Male",
+        "userName": "maspetrolhead"
+    }
+]
