@@ -11,10 +11,17 @@ router.post('/login', Controller.loginPost)
 router.get('/register', Controller.register)
 router.post('/register', Controller.registerPost)
 
-// route beranda
+//middle ware
+router.use((req, res, next) => {
+    if(req.session.UserId){
+        next()
+    } else {
+        res.redirect('/login')
+    }
+})
+
 router.get('/beranda', Controller.beranda)
 
-// route profile
-router.get('/profile/:UserId', Controller.profile)
+router.get('/profile', Controller.profile)
 
 module.exports = router

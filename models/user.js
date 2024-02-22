@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const {
   Model
 } = require('sequelize');
+const Helper = require('../utils/helper');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -16,10 +17,37 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Profile)
       User.hasMany(models.Post)
     }
+
+    get userDate(){
+      return Helper.formatDate(this.createdAt)
+    }
+
   }
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate:{
+        notNull:{
+          msg: `Email is required`
+        },
+        notEmpty:{
+          msg: `Email is required`
+        }
+      }
+    },
+    password: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate:{
+        notNull:{
+          msg: `Password is required`
+        },
+        notEmpty:{
+          msg: `Password is required`
+        }
+      }
+    }
   }, {
     hooks:{
       beforeCreate: (user, option) => {
