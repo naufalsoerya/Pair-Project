@@ -1,4 +1,4 @@
-const { Users } = require('../models')
+const { Post, Comment, Home, Profile, User } = require('../models/index');
 
 class Controller{
     static async login(req, res){
@@ -30,7 +30,6 @@ class Controller{
         }
     }
 
-    // NEW FITUR
     static async beranda(req, res){
         try {
             res.render('beranda')
@@ -38,13 +37,21 @@ class Controller{
             res.send(error)
         }
     }
-    static async profile(req, res){
+
+    static async profile(req, res) {
         try {
-            res.render('profile')
-        } catch (error) {
+            let {UserId} = req.params
+            let data = await User.findOne({include:[Profile, Post]}, {where:{id:UserId}})
+            // res.send(data)
+            console.log(data);
+            res.render('profile', {data})
+        } catch(error) {
+            console.log(error.message)
             res.send(error)
         }
     }
+
+    static async 
 }
 
 module.exports = Controller

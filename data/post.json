@@ -2,14 +2,12 @@
     {
         "UserId": 1,
         "descPost": "Gabut bang, sokin sini",
-        "imageUrl": "https://asset.kompas.com/crops/1G8CAUrzpySXPC5Dlp6a3m4epN0=/0x0:0x0/1200x800/data/photo/2023/08/21/64e347bfbac2a.jpg",
         "title": "Nongs Yuk",
         "likePost": 0
     },
     {
         "UserId": 2,
         "descPost": "Buset bang, puter dulu gelasnya",
-        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Spirituosen-im-supermarkt.jpg",
         "title": "Ada apasih kawan",
         "likePost": 0
     }
