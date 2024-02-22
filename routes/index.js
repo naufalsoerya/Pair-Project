@@ -11,6 +11,15 @@ router.post('/login', Controller.loginPost)
 router.get('/register', Controller.register)
 router.post('/register', Controller.registerPost)
 
+//middle ware
+router.use((req, res, next) => {
+    if(req.session.UserId){
+        next()
+    } else {
+        res.redirect('/login')
+    }
+})
+
 router.get('/beranda', Controller.beranda)
 
 router.get('/profile', Controller.profileRedirect)
