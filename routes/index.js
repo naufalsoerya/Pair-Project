@@ -11,9 +11,10 @@ router.post('/login', Controller.loginPost)
 router.get('/register', Controller.register)
 router.post('/register', Controller.registerPost)
 
+// route beranda
 router.get('/beranda', Controller.beranda)
 
-router.get('/profile', Controller.profileRedirect)
+// route profile
 router.get('/profile/:UserId', Controller.profile)
 
 module.exports = router
