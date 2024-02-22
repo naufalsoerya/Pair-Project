@@ -75,9 +75,10 @@ class Controller{
     static async beranda(req, res){
         try {
             let data = await User.findAll({include:[Profile, Post]})
-
-            // res.send(data)
-            res.render('beranda', {data})
+            let search = await Profile.findOne({order: ['userName']})
+            
+            // res.send(search)
+            res.render('beranda', {data, search})
         } catch (error) {
             res.send(error)
         }
@@ -89,26 +90,6 @@ class Controller{
             let data = await User.findOne({include:[Profile, Post], where:{id:UserId}})
             // res.send(data)
             res.render('profile', {data})
-        } catch(error) {
-            console.log(error.message)
-            res.send(error)
-        }
-    }
-
-    static async profileRedirect(req, res) {
-        try {
-            let {UserId} = req.params
-            await Profile.findOne({where: {id: UserId}})
-            res.redirect(`/profile/${UserId}`)
-        } catch(error) {
-            console.log(error.message)
-            res.send(error)
-        }
-    }
-
-    static async homePage(req, res) {
-        try {
-            
         } catch(error) {
             console.log(error.message)
             res.send(error)
