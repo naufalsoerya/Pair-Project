@@ -9,11 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      likeComment: {
-        type: Sequelize.INTEGER
-      },
       descComment: {
         type: Sequelize.STRING
+      },
+      likeComment: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
