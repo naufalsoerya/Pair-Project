@@ -33,8 +33,8 @@ class Controller{
     static async profilePage(req, res) {
         try {
             let {UserId} = req.params
-            let data = await User.findOne({include: Post, where: {id: UserId}})
-            res.send(data)
+            let data = await User.findOne({include:[Profile, Post]}, {where:{id:UserId}})
+            // res.send(data)
             console.log(data);
             res.render('mainpage', {data})
         } catch(error) {
