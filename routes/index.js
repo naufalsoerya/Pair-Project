@@ -22,7 +22,6 @@ router.use((req, res, next) => {
 
 router.get('/beranda', Controller.beranda)
 
-// route profile
-router.get('/profile/:UserId', Controller.profile)
+router.get('/profile', Controller.profile)
 
 module.exports = router

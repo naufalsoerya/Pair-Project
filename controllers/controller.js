@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs');
 class Controller{
     static async login(req, res){
         try {
-            console.log(req.session);
             let {email, password} = req.body
             let user = await User.findOne({where:{email:{[Op.eq]:email}}})
             let {msg, error, val} = req.query
@@ -55,8 +54,14 @@ class Controller{
 
     static async registerPost(req, res){
         try {
-            let {email, password} = req.body
+            let {email, password, userName, gender} = req.body
             await User.create({email, password})
+
+            let bioProfile = `Welcome ${userName}`
+            let photoProfile = ''
+            let user = await User.findOne({where:{email:{[Op.eq]:email}}})
+            let UserId = user.id
+            await Profile.create({bioProfile,userName,gender,photoProfile,UserId})
 
             let msg = `Sign Up Success !`
             res.redirect(`/login?msg=${msg}`)
@@ -86,12 +91,11 @@ class Controller{
 
     static async profile(req, res) {
         try {
-            let {UserId} = req.params
-            let data = await User.findOne({include:[Profile, Post], where:{id:UserId}})
+            let id = req.session.UserId
+            let data = await User.findOne({include:[Profile, Post], where:{id:id}})
             // res.send(data)
             res.render('profile', {data})
         } catch(error) {
-            console.log(error.message)
             res.send(error)
         }
     }
