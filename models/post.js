@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const Helper = require('../utils/helper');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     /**
@@ -13,11 +14,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Post.belongsToMany(models.Comment, {through: 'Home'})
     }
+
+    static async totalLike(id){
+      try {
+        let totalLike = await Post.sum('likePost', { where: { UserId: { [Op.gt]: id } } });
+        if (!totalLike) totalLike = "-"
+        return Helper.formatNumb(totalLike)
+      } catch (error) {
+        throw error
+      }
+    }
   }
   Post.init({
     title: DataTypes.STRING,
     descPost: DataTypes.STRING,
-    likePost: DataTypes.INTEGER
+    likePost: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER
   }, {
     hooks: {
       beforeCreate: (post, options) => {

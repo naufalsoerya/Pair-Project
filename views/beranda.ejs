@@ -45,9 +45,11 @@
                 <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
               </form>
               <ul class="list-group mt-4">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                USERNAME
-                <span class="badge text-bg-primary rounded-pill"> 0 </span>
+                <% profile.forEach(item => { %>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= item.userName %>
+                  <span class="badge text-bg-primary rounded-pill"> 0 </span>
+                <% }); %>
                 </li>
               </ul>
             </div>

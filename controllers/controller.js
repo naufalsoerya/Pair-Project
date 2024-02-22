@@ -80,7 +80,20 @@ class Controller{
     static async beranda(req, res){
         try {
             let post = await Post.findAll({include: Comment})
-            res.render('beranda', {post})
+            
+            //FITUR SEARCHING
+            let option = {}
+            let {search} = req.query
+            if(search) {
+                option.where = {
+                    userName:{
+                        [Op.iLike]: `%${search}%`
+                    }
+                }
+            }
+            let profile = await Profile.findAll(option)
+
+            res.render('beranda', {post, profile})
         } catch (error) {
             res.send(error)
         }
