@@ -10,7 +10,8 @@ router.get('/login', Controller.login)
 router.get('/register', Controller.register)
 router.post('/register', Controller.registerPost)
 
-// router mainpage
-router.get('/profile/:UserId', Controller.profilePage)
+router.get('/beranda', Controller.beranda)
+
+router.get('/profile', Controller.profile)
 
 module.exports = router

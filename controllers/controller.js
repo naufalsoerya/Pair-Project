@@ -30,13 +30,21 @@ class Controller{
         }
     }
 
-    static async profilePage(req, res) {
+    static async beranda(req, res){
+        try {
+            res.render('beranda')
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async profile(req, res) {
         try {
             let {UserId} = req.params
             let data = await User.findOne({include:[Profile, Post]}, {where:{id:UserId}})
             // res.send(data)
             console.log(data);
-            res.render('mainpage', {data})
+            res.render('profile', {data})
         } catch(error) {
             console.log(error.message)
             res.send(error)
