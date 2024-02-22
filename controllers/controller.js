@@ -29,6 +29,22 @@ class Controller{
             res.send(error)
         }
     }
+
+    // NEW FITUR
+    static async beranda(req, res){
+        try {
+            res.render('beranda')
+        } catch (error) {
+            res.send(error)
+        }
+    }
+    static async profile(req, res){
+        try {
+            res.render('profile')
+        } catch (error) {
+            res.send(error)
+        }
+    }
 }
 
 module.exports = Controller
