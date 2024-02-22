@@ -11,8 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Home.belongsTo(models.Post)
-      Home.belongsTo(models.Comment)
     }
   }
   Home.init({

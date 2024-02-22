@@ -13,6 +13,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Profile.belongsTo(models.User)
     }
+
+    //static method
+    static asName(){
+      let result;
+      if(this.gender === 'Male'){
+        result = `${this.userName} - (He)`
+      } else if(this.gender === 'Female'){
+        result = `${this.userName} - (She)`
+      }
+      return result;
+    }
   }
   Profile.init({
     userName: DataTypes.STRING,

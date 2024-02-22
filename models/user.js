@@ -33,7 +33,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty:{
           msg: `Email is required`
-        }
+        },
+        isEmail:{
+          msg: `Email format (foo@bar.com)`
+        },
       }
     },
     password: {
@@ -45,7 +48,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty:{
           msg: `Password is required`
-        }
+        },
+        len:{
+          args: 8,
+          msg: 'Password must be 8 characters or more'
+        },
       }
     }
   }, {

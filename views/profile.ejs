@@ -29,43 +29,19 @@
 </head>
 <body>
     <!-- header  -->
-    <div class="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <i class="fa fa-twitter" style="font-size:36px; margin-left: 30px;"></i>
-            <a class="nav-link disabled" aria-disabled="true" style="margin-left: 55px; font-size: 18px;"><b>SOSMED</b></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                <a class="nav-link" href="/beranda" style="margin-left: 10px;">Beranda <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/profile/<%= data.Profile.UserId %>">Profile</a>
-                </li>
-            </ul>
-            </div>
-            <form class="d-flex" role="search" style="margin-right: 30px;">
-                <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
-            </form>
-        </nav>
-    </div>
-
+    <%- include('partials/header.ejs') %>
     <!-- content  -->
     <div class="container mt-4">
         <div class="card mb-3" style="border: none;">
                 <div class="banner"></div>
                 <img src="<%= data.Profile.photoProfile %>" alt="photo_profile">
                 <div class="card-body">
-                  <h3 class="card-title"><%= data.Profile.userName %></h3>
+                  <h3 class="card-title"><%= data.Profile.userName %> </h3>
                   <p class="card-text"><small class="text-body-secondary"><%= data.Profile.gender %></small></p>
                   <p class="card-text"><small class="text-body-secondary"><%= data.Profile.bioProfile %></small></p>
                 </div>
         </div>
         <div class="content">
-
         </div>
     </div>
 </body>

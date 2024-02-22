@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Post.belongsTo(models.User)
-      Post.hasMany(models.Home)
-      // Post.belongsToMany(models.Comment, { through: models.Home })
+      Post.belongsToMany(models.Comment, {through: 'Home'})
     }
   }
   Post.init({
@@ -21,6 +19,13 @@ module.exports = (sequelize, DataTypes) => {
     descPost: DataTypes.STRING,
     likePost: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate: (post, options) => {
+        if(post.descPost) {
+          post.likePost = 0
+        }
+      }
+    },
     sequelize,
     modelName: 'Post',
   });

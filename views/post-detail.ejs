@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda</title>
+<!-- HEADER -->
+<%- include('partials/header.ejs') %>
+<!-- HEADER -->
+    <div class="container">
+        <H3><%= post.descPost %></H3>
+        <a href="/post/<%= post.id %>/comment">add comment</a>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Desc Comment</th>
+                <th scope="col">Like Comment</th>
+              </tr>
+            </thead>
+            <% post.Comments.forEach(item => { %>
+                <tr>
+                    <td scope="col"><%= item.descComment %></td>
+                    <td scope="col"><%= item.likeComment %></td>
+                </tr>
+            <% }) %>
+            <tbody>
+            </tbody>
+    </div>
+</body>
+</html>

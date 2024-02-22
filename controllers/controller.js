@@ -1,5 +1,5 @@
 const { Post, Comment, Home, Profile, User, sequelize } = require('../models/index');
-const { Op } = require("sequelize")
+const { Op, where } = require("sequelize")
 const bcrypt = require('bcryptjs');
 
 class Controller{
@@ -79,22 +79,8 @@ class Controller{
 
     static async beranda(req, res){
         try {
-            let data = await User.findAll({include:[Profile, Post]})
-            // let data = await Post.findAll({include: {
-            //     models: Home,
-            //     include: Comment
-            // }})
-            // let data = await Home.findAll({include:[Comment, Post]})
-            let search = await Profile.findOne({
-                where: {
-                    userName: {
-                        [Op.iLike]: '%hat'
-                    }
-                }
-            })
-            
-            // res.send(data)
-            res.render('beranda', {data, search})
+            let post = await Post.findAll({include: Comment})
+            res.render('beranda', {post})
         } catch (error) {
             res.send(error)
         }
@@ -102,8 +88,8 @@ class Controller{
 
     static async profile(req, res) {
         try {
-            let id = req.session.UserId
-            let data = await User.findOne({include:[Profile, Post], where:{id:id}})
+            let id = req.session.UserId //TESTING
+            let data = await User.findOne({include:[Profile, Post], where:{id:4}})
             // res.send(data)
             res.render('profile', {data})
         } catch(error) {
@@ -111,93 +97,67 @@ class Controller{
         }
     }
 
-    static async detail(req, res) {
+    static async post(req, res){
         try {
-            let {UserId} = req.params
-            // let data = await Post.findOne({include:[Comment], where:{id:UserId}})
-            // let data2 = await Profile.findOne()
-            let data = await Profile.findAll({include: {
-                models: User,
-                include: {
-                    models: Post
-                }
-            }})
-            res.send(data)
-            res.render('detailPage', {data})
-        } catch(error) {
-            console.log(error.message)
+            res.render('form-post')
+        } catch (error) {
             res.send(error)
         }
     }
 
-    static async commentPage(req, res) {
+    static async addPost(req, res){
         try {
-            let {UserId} = req.params
-
-            let data = await Post.findOne({where: {id: UserId}})
-            // res.send(data)
-            res.render('commentPage', {data})
-        } catch(error) {
-            console.log(error.message)
+            let {title, descPost} = req.body
+            await Post.create({title, descPost})
+            res.redirect('/beranda')
+        } catch (error) {
             res.send(error)
         }
     }
 
-    static async commentForm(req, res) {
+    static async postDetail(req, res){
+        try {
+            let {id} = req.params
+            console.log(req.params);
+            let post = await Post.findOne({include:Comment, where:{id:id}})
+            // res.send(post)
+            res.render('post-detail', {post})
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async comment(req, res){
+        try {
+            let {id} = req.params
+            res.render('form-comment',{id})
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async addComment(req, res){
         try {
             let {descComment} = req.body
-            let {UserId} = req.params
-
-            let PostId = UserId;
-            let CommentId = UserId
-
+            let PostId = req.params.id
             await Comment.create({descComment})
+
+            let comment = await Comment.findOne({where:{descComment:descComment}})
+            let CommentId = comment.id
             await Home.create({PostId, CommentId})
-            res.redirect(`/detail/${UserId}`)
-        } catch(error) {
-            console.log(error.message)
+
+            res.redirect(`/post/${PostId}`)
+        } catch (error) {
             res.send(error)
         }
     }
 
-    static async updatedLikePost(req, res) {
+    static async logout(req, res){
         try {
-            let {UserId} = req.params
-
-            await Post.update(
-                {likePost: sequelize.literal('"likePost" + 1')},
-                {where: {id: UserId}}
-            )
-            res.redirect(`/detail/${UserId}`)
-        } catch(error) {
-            console.log(error.message)
-            res.send(error)
-        }
-    }
-
-    static async updatedLikeComment(req, res) {
-        try {
-            let {UserId} = req.params
-
-            await Comment.update(
-                {likeComment: sequelize.literal('"likeComment" + 1')},
-                {where: {id: UserId}}
-            )
-            res.redirect(`/detail/${UserId}`)
-        } catch(error) {
-            console.log(error.message)
-            res.send(error)
-        }
-    }
-
-    static async delete(req, res) {
-        try {
-            let {CommentId} = req.params
-
-            await Comment.destroy({where: {id: CommentId}})
-            res.redirect(`/detail/${CommentId}`)
-        } catch(error) {
-            console.log(error.message)
+            setTimeout(() => {
+                res.redirect('/login')
+            }, 1000);
+        } catch (error) {
             res.send(error)
         }
     }

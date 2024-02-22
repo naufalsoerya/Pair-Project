@@ -12,30 +12,31 @@ router.get('/register', Controller.register)
 router.post('/register', Controller.registerPost)
 
 //middle ware
-router.use((req, res, next) => {
-    if(req.session.UserId){
-        next()
-    } else {
-        res.redirect('/login')
-    }
-})
+// router.use((req, res, next) => {
+//     if(req.session.UserId){
+//         next()
+//     } else {
+//         res.redirect('/login')
+//     }
+// })
 
 router.get('/beranda', Controller.beranda)
 
 router.get('/profile', Controller.profile)
 
-// route detail post
-router.get('/detail/:UserId', Controller.detail)
+//Add Post
+router.get('/post', Controller.post)
+router.post('/post', Controller.addPost)
 
-// route comment 
-router.get('/comment/:UserId', Controller.commentPage)
-router.post('/comment/:UserId', Controller.commentForm)
+//Detail Post
+router.get('/post/:id', Controller.postDetail)
 
-// route like
-router.get('/likePost/:UserId', Controller.updatedLikePost)
-router.get('/likeComment/:UserId', Controller.updatedLikeComment)
+//Add Commment
+router.get('/post/:id/comment', Controller.comment)
+router.post('/post/:id/comment', Controller.addComment)
 
-// route delete
-router.get('/delete/:CommentId', Controller.delete)
+//Logout
+router.get('/logout', Controller.logout)
+
 
 module.exports = router

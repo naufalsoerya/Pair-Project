@@ -4,59 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda</title>
+    <style>
+      img {
+        height: 45px;
+        width: 45px;
+        border-radius: 100%;
+      }
+    </style>
 <!-- HEADER -->
 <%- include('partials/header.ejs') %>
 <!-- HEADER -->
-    <div class="container">
-        <div class="container mt-4">
-            <div class="row">
-              <div class="col-md-8">
-                <!-- Tweets -->
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <% data.forEach(item => { %>
-                        <% item.Posts.forEach(el => { %>
-                            <div class="card">
-                                <div class="card-header">
-                                  <%= item.Profile.userName %>
-                                </div>
-                                <div class="card-body">
-                                  <h5 class="card-title"><%= el.title %></h5>
-                                  <p class="card-text" style="margin-top: 15px; margin-bottom: 8px;"> Description: <%= el.descPost %></p>
-                                  <p><small><i class="fa fa-heart"></i> <%= el.likePost %></small></p>
-<<<<<<< HEAD
-                                  <a href="/detail/<%= el.UserId %>" class="btn btn-outline-dark">Detail Post</a> 
-=======
-                                  <a href="/comment" class="btn btn-outline-dark">Comment on this post!</a> 
->>>>>>> aa2213c2992d55da025aabfff0d49d82097f90f5
-                                </div>
-                            </div>
-                            <p></p>
-                        <% }); %>
-                    <% }); %>
-                  </div>
+    <div class="container mt-4">
+      <div class="row">
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="card">
+                <div class="card-header" style="display: flex;">
+                  <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile" class="me-2">
+                  <p class="fw-bold" style="position: relative;top: 12px;">Username</p>
                 </div>
-          
-              </div>
-              <div class="col-md-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title" style="margin-bottom: 12px;">Find Our User list !</h5>
-                    <ul class="list-group">
-                          <% data.forEach(item => { %>
-                            <% item.Posts.forEach(el => { %>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <%= item.Profile.userName %>
-                                <span class="badge text-bg-primary rounded-pill"><%= el.likePost %></span>
-                                </li>
-                            <% }); %>
-                          <% }); %>
-                    </ul>
-                  </div>
+                <div class="card-body">
+                  <p class="card-title fw-bold">TITLE</p>
+                  <p class="card-text" style="margin-top: 15px; margin-bottom: 8px;">DESC POST</p>
                 </div>
-              </div>
+                <div class="card-body" style="margin-top: -15px;">
+                  tombol like dan comment
+                </div>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="col-md-4">
+        <div style="border: lpx solid #999 solid blue;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" style="margin-bottom: 12px;">Find Our User list !</h5>
+              <form class="d-flex" role="search" style="margin-right: 132px;">
+                <input class="form-control me-2" type="search" style="width: 300px;" name="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
+              </form>
+              <ul class="list-group mt-4">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                USERNAME
+                <span class="badge text-bg-primary rounded-pill"> 0 </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 </body>
 </html>
