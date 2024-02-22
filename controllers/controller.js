@@ -33,9 +33,8 @@ class Controller{
     static async profilePage(req, res) {
         try {
             let {UserId} = req.params
-            let data = await User.findOne({include:[Profile, Post]}, {where:{id:UserId}})
-            // res.send(data)
-            console.log(data);
+            let data = await User.findOne({include:[Profile, Post], where: {id:UserId}})
+            res.send(data)
             res.render('mainpage', {data})
         } catch(error) {
             console.log(error.message)
@@ -43,7 +42,14 @@ class Controller{
         }
     }
 
-    static async 
+    static async homePage(req, res) {
+        try {
+
+        } catch(error) {
+            console.log(error.message)
+            res.send(error)
+        }
+    }
 }
 
 module.exports = Controller
