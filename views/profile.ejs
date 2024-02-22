@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        .banner{
+            background-image: url("https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+            height: 250px;
+            background-size: cover;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+            border: 3px solid white;
+            border-radius: 100%;
+            z-index: 0;
+            object-fit: cover;
+
+            margin-top: -100px;
+            margin-left: 15px;
+        }
+    </style>
+<!-- HEADER -->
+<%- include('partials/header.ejs') %>
+<!-- HEADER -->
+    <div class="container mt-4">
+        <div class="card mb-3" style="border: none;">
+                <div class="banner"></div>
+                <img src="<%= data.Profile.photoProfile %>" alt="photo_profile">
+                <div class="card-body">
+                  <h3 class="card-title"><%= data.Profile.userName %></h3>
+                  <p class="card-text"><small class="text-body-secondary"><%= data.Profile.gender %></small></p>
+                  <p class="card-text"><small class="text-body-secondary"><%= data.Profile.bioProfile %></small></p>
+                </div>
+        </div>
+        <div class="content">
+
+        </div>
+    </div>
+</body>
+</html>
