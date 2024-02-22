@@ -14,7 +14,12 @@
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
         }
-        img {
+        .tumb-nail{
+            height: 45px;
+            width: 45px;
+            border-radius: 100%;
+        }
+        .pp {
             width: 200px;
             height: 200px;
             border: 3px solid white;
@@ -34,14 +39,31 @@
     <div class="container mt-4">
         <div class="card mb-3" style="border: none;">
                 <div class="banner"></div>
-                <img src="<%= data.Profile.photoProfile %>" alt="photo_profile">
+                <img class="pp" src="<%= data.Profile.photoProfile %>" alt="photo_profile">
                 <div class="card-body">
                   <h3 class="card-title"><%= data.Profile.userName %> </h3>
                   <p class="card-text"><small class="text-body-secondary"><%= data.Profile.gender %></small></p>
                   <p class="card-text"><small class="text-body-secondary"><%= data.Profile.bioProfile %></small></p>
                 </div>
         </div>
-        <div class="content">
+        <div class="content" style="margin-top: 50px;">
+            <% post.forEach(item => { %>
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header" style="display: flex;">
+                        <img class="tumb-nail me-2" src="<%= data.Profile.photoProfile %>" alt="profile" class="me-2">
+                        <p class="fw-bold" style="position: relative;top: 12px;"><%= data.Profile.userName %></p>
+                        </div>
+                        <div class="card-body">
+                        <p class="card-title fw-bold"><%= item.title %></p>
+                        <p class="card-text" style="margin-top: 15px; margin-bottom: 8px;"><%= item.descPost %></p>
+                        </div>
+                        <div class="card-body" style="margin-top: -15px;">
+                        tombol like dan comment
+                        </div>
+                    </div>
+            <% }) %>
+            </div>
         </div>
     </div>
 </body>

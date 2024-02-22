@@ -103,8 +103,10 @@ class Controller{
         try {
             let id = req.session.UserId //TESTING
             let data = await User.findOne({include:[Profile, Post], where:{id:4}})
-            // res.send(data)
-            res.render('profile', {data})
+
+            let post = await Post.findAll({include: Comment, where:{id:4}})
+
+            res.render('profile', {data, post})
         } catch(error) {
             res.send(error)
         }
