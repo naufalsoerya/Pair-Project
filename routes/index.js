@@ -17,4 +17,18 @@ router.get('/beranda', Controller.beranda)
 // route profile
 router.get('/profile/:UserId', Controller.profile)
 
+// route detail post
+router.get('/detail/:UserId', Controller.detail)
+
+// route comment 
+router.get('/comment/:UserId', Controller.commentPage)
+router.post('/comment/:UserId', Controller.commentForm)
+
+// route like
+router.get('/likePost/:UserId', Controller.updatedLikePost)
+router.get('/likeComment/:UserId', Controller.updatedLikeComment)
+
+// route delete
+router.get('/delete/:CommentId', Controller.delete)
+
 module.exports = router

@@ -24,7 +24,7 @@
                                   <h5 class="card-title"><%= el.title %></h5>
                                   <p class="card-text" style="margin-top: 15px; margin-bottom: 8px;"> Description: <%= el.descPost %></p>
                                   <p><small><i class="fa fa-heart"></i> <%= el.likePost %></small></p>
-                                  <a href="#" class="btn btn-outline-dark">Comment on this post!</a> 
+                                  <a href="/detail/<%= el.UserId %>" class="btn btn-outline-dark">Detail Post</a> 
                                 </div>
                             </div>
                             <p></p>
@@ -39,7 +39,7 @@
                   <div class="card-body">
                     <h5 class="card-title" style="margin-bottom: 12px;">Find Our User list !</h5>
                     <ul class="list-group">
-                        <% data.forEach(item => { %>
+                          <% data.forEach(item => { %>
                             <% item.Posts.forEach(el => { %>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <%= item.Profile.userName %>

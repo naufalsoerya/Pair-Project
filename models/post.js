@@ -11,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Post.belongsTo(models.User)
-      Post.belongsToMany(models.Comment, { through: 'models.Home' })
+      // Post.belongsTo(models.User)
+      Post.hasMany(models.Home)
+      // Post.belongsToMany(models.Comment, { through: models.Home })
     }
   }
   Post.init({

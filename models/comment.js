@@ -11,15 +11,26 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Comment.belongsToMany(models.Post, { through: 'models.Home' })
+      // Comment.belongsToMany(models.Post, { through: models.Home })
+      Comment.hasMany(models.Home)
     }
   }
   Comment.init({
     descComment: DataTypes.STRING,
-    likeComment: DataTypes.INTEGER
+    likeComment: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    }
   }, {
     sequelize,
     modelName: 'Comment',
+    hooks: {
+      beforeCreate: (comment, options) => {
+        if(comment.descComment) {
+          comment.likeComment = 0
+        }
+      }
+    }
   });
   return Comment;
 };
