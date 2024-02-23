@@ -1,6 +1,15 @@
 const { Post, Comment, Home, Profile, User, sequelize } = require('../models/index');
 const { Op, where } = require("sequelize")
 const bcrypt = require('bcryptjs');
+const nodemailer = require("nodemailer")
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: "hcoustic@gmail.com",
+        pass: "tsjxojborbshgrhc"
+    }
+})
 
 class Controller{
     static async login(req, res){
@@ -63,6 +72,17 @@ class Controller{
             let UserId = user.id
             await Profile.create({bioProfile,userName,gender,photoProfile,UserId})
 
+            const baseUrl = `${req.protocol}://${req.get("host")}`
+            let url = `${baseUrl}/register/${UserId}`
+            const mailOption = {
+                from: "hcoustic@gmail.com",
+                to: user.email,
+                subject: "Register confirmation email",
+                html: `Anda Sudah terdaftar di aplikasi sosmed local`
+            };
+            await transporter.sendMail(mailOption)
+            console.log(`Pesan telah terkirim`);
+
             let msg = `Sign Up Success !`
             res.redirect(`/login?msg=${msg}`)
         } catch (error) {
@@ -79,8 +99,10 @@ class Controller{
 
     static async beranda(req, res){
         try {
-            let post = await Post.findAll({include: Comment})
-            
+            let user = await User.findAll({include:[Profile,{
+                model: Post,
+                include: Comment
+            }]})
             //FITUR SEARCHING
             let option = {}
             let {search} = req.query
@@ -92,8 +114,7 @@ class Controller{
                 }
             }
             let profile = await Profile.findAll(option)
-
-            res.render('beranda', {post, profile})
+            res.render('beranda', {user, profile})
         } catch (error) {
             res.send(error)
         }
@@ -101,12 +122,15 @@ class Controller{
 
     static async profile(req, res) {
         try {
-            let id = req.session.UserId //TESTING
-            let data = await User.findOne({include:[Profile, Post], where:{id:4}})
+            let id = req.session.UserId
+            let user = await User.findOne({include:[Profile,{
+                model: Post,
+                include: Comment
+            }], where:{
+                id: id
+            }})
 
-            let post = await Post.findAll({include: Comment, where:{id:4}})
-
-            res.render('profile', {data, post})
+            res.render('profile', {user})
         } catch(error) {
             res.send(error)
         }
@@ -123,7 +147,8 @@ class Controller{
     static async addPost(req, res){
         try {
             let {title, descPost} = req.body
-            await Post.create({title, descPost})
+            let {UserId} = req.session
+            await Post.create({title, descPost, UserId})
             res.redirect('/beranda')
         } catch (error) {
             res.send(error)
@@ -133,7 +158,6 @@ class Controller{
     static async postDetail(req, res){
         try {
             let {id} = req.params
-            console.log(req.params);
             let post = await Post.findOne({include:Comment, where:{id:id}})
             // res.send(post)
             res.render('post-detail', {post})
@@ -162,6 +186,48 @@ class Controller{
             await Home.create({PostId, CommentId})
 
             res.redirect(`/post/${PostId}`)
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async postDelete(req, res){
+        try {
+            let {id} = req.params
+            await Post.destroy({where:{id:id}})
+            res.redirect('/beranda')
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async edit(req, res){
+        try {
+            let {UserId} = req.session
+            let profile = await Profile.findByPk(UserId)
+            res.send(profile)
+            // res.render('profile-edit', {profile})
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async saveEdit(req, res){
+        try {
+            let {bioProfile, userName, gender, photoProfile} = req.body
+            let {UserId} = req.session
+
+            await Profile.update({bioProfile, userName, gender, photoProfile,UserId},{where:{id:UserId}})
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async postLike(req, res){
+        try {
+            let id = req.params.id
+            await Post.increment({likePost: 1}, { where: { id: id } })
+            res.redirect('/beranda')
         } catch (error) {
             res.send(error)
         }

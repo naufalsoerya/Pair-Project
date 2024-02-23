@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //static method
-    static asName(){
+    get asName(){
       let result;
       if(this.gender === 'Male'){
         result = `${this.userName} - (He)`

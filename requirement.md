@@ -28,7 +28,7 @@ role
 Menggunakan method-method sequelize yang bertujuan untuk CRUD
 ✅ Terdapat hooks
 ✅ Membuat dan menggunakan helper
-Menggunakan mekanisme promise chaining (notifikasi delete kaya challenge 6)
+✅ Menggunakan mekanisme promise chaining (notifikasi delete kaya challenge 6)
 
 ------
 # Requirement Pages

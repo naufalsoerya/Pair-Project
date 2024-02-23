@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda</title>
+<!-- HEADER -->
+<%- include('partials/header.ejs') %>
+<!-- HEADER -->
+    <div class="container">
+        <form action="/post/edit" method="POST">
+            <label for="bio">Bio</label>
+            <input type="text" name="bioProfile" value="<%= profile.bioProfile %>">
+            <label for="userName">Username</label>
+            <input type="text" name="userName" value="<%= profile.userName %>">
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+                <% ['Male', 'Female'].forEach(item => { %>
+                    <option value="<%= item %>" <%= (item === profile.gender)? 'selected':'' %>><%= item %></option>
+                <% }) %>
+            </select>
+            <label for="photoProfile">Photo Profile</label>
+            <input type="text" name="photoProfile" value="<%= profile.photoProfile %>">
+            <input type="submit" value="Update Profile">
+        </form>
+    </div>
+</body>
+</html>

@@ -17,24 +17,43 @@
     <div class="container mt-4">
       <div class="row">
       <!-- CONTENT POSTING -->
+      <h3>POSTINGAN</h3>
+      <a href="/post">
+        <button type="button" class="btn btn-outline-success mb-4">Tambahkan Postingan</button>
+      </a>
       <div class="col-md-8">
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="card">
-                <div class="card-header" style="display: flex;">
-                  <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile" class="me-2">
-                  <p class="fw-bold" style="position: relative;top: 12px;">Username</p>
-                </div>
-                <div class="card-body">
-                  <p class="card-title fw-bold">TITLE</p>
-                  <p class="card-text" style="margin-top: 15px; margin-bottom: 8px;">DESC POST</p>
-                </div>
-                <div class="card-body" style="margin-top: -15px;">
-                  tombol like dan comment
-                </div>
+        <% user.forEach(item => { %>
+        <% item.Posts.forEach(post => { %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="card">
+                  <div class="card-header" style="display: flex;">
+                    <img src="<%= item.Profile.photoProfile %>" alt="profile" class="me-2">
+                    <p class="fw-bold" style="position: relative;top: 12px;"><%= item.Profile.userName %></p>
+                  </div>
+                  <div class="card-body">
+                      <p class="card-title fw-bold"><%= post.title %></p>
+                      <p class="card-text" style="margin-top: 15px; margin-bottom: 8px;"><%= post.descPost %></p>
+                  </div>
+                  <div class="card-body fw-bold" style="margin-top: -15px; display: flex;">
+                      <p class="me-4"><a href="/post/<%= post.id %>/like">
+                          <button type="button" class="btn btn-outline-primary"
+                                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                          Like
+                          </button>
+                      </a> : <%= post.likePost %></p>
+                      <p class="me-4"><a href="/post/<%= post.id %>">
+                          <button type="button" class="btn btn-outline-success"
+                                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                          Comment
+                          </button>
+                      </a> : <%= post.Comments.length %></p>
+                  </div>
+              </div>
             </div>
           </div>
-        </div>
+        <% }) %>
+        <% }) %>
       </div>
       <!-- CONTENT SEARCH SEBELAH KANAN -->
       <div class="col-md-4">

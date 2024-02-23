@@ -39,30 +39,51 @@
     <div class="container mt-4">
         <div class="card mb-3" style="border: none;">
                 <div class="banner"></div>
-                <img class="pp" src="<%= data.Profile.photoProfile %>" alt="photo_profile">
+                <img class="pp" src="<%= user.Profile.photoProfile %>" alt="photo_profile">
                 <div class="card-body">
-                  <h3 class="card-title"><%= data.Profile.userName %> </h3>
-                  <p class="card-text"><small class="text-body-secondary"><%= data.Profile.gender %></small></p>
-                  <p class="card-text"><small class="text-body-secondary"><%= data.Profile.bioProfile %></small></p>
+                  <h3 class="card-title"><%= user.Profile.asName %> </h3>
+                  <p class="card-text"><small class="text-body-secondary"><%= user.Profile.gender %></small></p>
+                  <p class="card-text"><small class="text-body-secondary"><%= user.Profile.bioProfile %></small></p>
+                  <p class="card-text"><small class="text-body-secondary">Bergabung Sejak : <%= user.userDate %></small></p>
+                  <a href="/post/edit"><button type="button" class="btn btn-outline-secondary btn-sm">Edit Profile</button></a>
                 </div>
         </div>
         <div class="content" style="margin-top: 50px;">
-            <% post.forEach(item => { %>
-                <div class="card-body">
-                    <div class="card">
-                        <div class="card-header" style="display: flex;">
-                        <img class="tumb-nail me-2" src="<%= data.Profile.photoProfile %>" alt="profile" class="me-2">
-                        <p class="fw-bold" style="position: relative;top: 12px;"><%= data.Profile.userName %></p>
-                        </div>
-                        <div class="card-body">
-                        <p class="card-title fw-bold"><%= item.title %></p>
-                        <p class="card-text" style="margin-top: 15px; margin-bottom: 8px;"><%= item.descPost %></p>
-                        </div>
-                        <div class="card-body" style="margin-top: -15px;">
-                        tombol like dan comment
-                        </div>
+            <h3>POSTINGAN</h3>
+            <a href="/post">
+                <button type="button" class="btn btn-outline-success mb-4">Tambahkan Postingan</button>
+            </a>
+                <% user.Posts.forEach(post => { %>
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="card">
+                          <div class="card-header" style="display: flex;">
+                            <img class="tumb-nail me-2" src="<%= user.Profile.photoProfile %>" alt="profile" class="me-2">
+                            <p class="fw-bold" style="position: relative;top: 12px;"><%= user.Profile.userName %></p>
+                          </div>
+                          <div class="card-body">
+                              <p class="card-title fw-bold"><%= post.title %></p>
+                              <p class="card-text" style="margin-top: 15px; margin-bottom: 8px;"><%= post.descPost %></p>
+                              <a href="/post/<%= post.id %>/delete"><button type="button" class="btn btn-outline-danger btn-sm">Delete Post</button></a>
+                            </div>
+                            <div class="card-body fw-bold" style="margin-top: -15px; display: flex;">
+                                <p class="me-4"><a href="/post/<%= post.id %>/like">
+                                    <button type="button" class="btn btn-outline-primary"
+                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                    Like
+                                    </button>
+                                </a> : <%= post.likePost %></p>
+                                <p class="me-4"><a href="/post/<%= post.id %>">
+                                    <button type="button" class="btn btn-outline-success"
+                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                    Comment
+                                    </button>
+                                </a> : <%= post.Comments.length %></p>
+                            </div>
+                      </div>
                     </div>
-            <% }) %>
+                  </div>
+                <% }) %>
             </div>
         </div>
     </div>
